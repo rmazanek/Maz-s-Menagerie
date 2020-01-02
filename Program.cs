@@ -11,9 +11,12 @@ namespace ChessKnight
       
      //List of commands
       List<string> userCmdList = new List<string> {
+      "position",
       "do all",
       "do 1",
       "list moves",
+      "create board",
+      "show board",
       "exit"
       };  
      
@@ -21,6 +24,9 @@ namespace ChessKnight
      popping up until "exit" is entered*/
       bool shouldContinue = true;
      
+      Knight k = new Knight();
+      Board b = new Board();
+
      /*Request command from the user until "exit" is 
      entered by user (thereby setting shouldContinue to false)*/
       while(shouldContinue)
@@ -41,6 +47,10 @@ namespace ChessKnight
               }
             break;
 
+          case "position":
+            Console.WriteLine("The knight's current position is: " + k.pos[0]);
+          break;
+          
           //Do all moves until the knight can no longer move
           case "do all":
               Console.WriteLine("The knight will move as many times as it can:");
@@ -65,6 +75,26 @@ namespace ChessKnight
         //Show all previous moves
           case "list moves":
               Console.WriteLine("The knight's path was: ");
+            break;
+
+        //Create board
+          case "create board":
+            b.createBoard();
+            break;
+          
+        //List cells in board
+          case "show board":
+            Console.WriteLine("Cell value, x position, y position: ");
+            foreach (int[] item in b.boardCells)
+            {
+              for (int i = 0; i < item.Length; i++)
+              {
+                Console.Write(" " + item[i]);
+              }
+              
+              Console.WriteLine();
+            }
+            
             break;
         
         //Exit
