@@ -18,18 +18,19 @@ namespace ChessKnight
       new int[] {0,0,0}
     };
 
-    public void createBoard()
+    public void createBoard(int maxLayers)
     {
       boardCells.Clear();
       boardCells.Add(new int[] {0,0,0});
       int cellValue = 1;
+      int layer;
 
       //Layer cell count... 1^2, 3^2-1^2, 5^2-3^2, 7^2-5^2...
       //DELETE THIS COMMENT WHEN DONE: for(int cellValue = (int)Math.Pow(2*(layer-1)+1,2); cellValue < (int)Math.Pow(2*(layer)+1,2); cellValue++)
 
-      for (int layer = 1; layer < 3; layer++)
+      for (layer = 1; layer < maxLayers; layer++) //Change layers for a bigger board
       {
-        for (int m = 0; m <= layer; m++) // Right side to top right - x is constant
+        for (int m = 0; m <= layer; m++) //Right side to top right - x is constant
         {
           int[] cell = new int[3];
           

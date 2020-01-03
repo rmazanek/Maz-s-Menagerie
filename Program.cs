@@ -15,7 +15,7 @@ namespace ChessKnight
       "do all",
       "do 1",
       "list moves",
-      "create board",
+      "create board -n (replace 'n' with integer number of cells representing maximum distance from origin)",
       "show board",
       "exit"
       };  
@@ -34,10 +34,35 @@ namespace ChessKnight
 
       //Command request and read command  
         Console.Write("Enter command: ");
-        string userCmd = Console.ReadLine();
         
+        //string input = Console.ReadLine().ToLower();
+        string userCmd = Console.ReadLine().ToLower();;
+        int maxLayers = 10;  //Default to 10 board radius
+
+        //try
+        //{
+        //  
+        //  string[] argumentCmd = input.Split(" -",2,StringSplitOptions.RemoveEmptyEntries);
+        //  userCmd = argumentCmd[0];
+        //  
+        //  layer = int.Parse(argumentCmd[1]);
+        //  //DELETE WHEN FINISHED: int layer = int.Parse(argumentCmd[1].ToString());
+        //}
+        //catch (System.IndexOutOfRangeException)
+        //{
+        //  userCmd = Console.ReadLine().ToLower();
+        //}
+        
+        //DELETE WHEN FINISHED: Console.WriteLine($"{userCmd.Length} substrings in text:");
+        //DELETE WHEN FINISHED: 
+        //DELETE WHEN FINISHED: for (int c = 0; c < userCmd.Length; c++)
+        //DELETE WHEN FINISHED: {
+        //DELETE WHEN FINISHED:   Console.Write(userCmd[c] + "\n");
+        //DELETE WHEN FINISHED: }
+
+
         //Change command to lower case and find the logic for it
-        switch (userCmd.ToLower()) 
+        switch (userCmd)
         {
         
           //List all commands
@@ -66,8 +91,7 @@ namespace ChessKnight
           case "do 1":
               /*Print knights possible moves, ranked 
               (cell value, x, y)*/
-              Console.WriteLine("The knight checked these cells:");
-              //Print the next knight move (cell value, x, y)
+              k.NextPosList();
               Console.WriteLine("The knight moves once, to cell:");
                         
             break;
@@ -79,7 +103,7 @@ namespace ChessKnight
 
         //Create board
           case "create board":
-            b.createBoard();
+            b.createBoard(maxLayers);
             break;
           
         //List cells in board
