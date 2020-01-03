@@ -103,22 +103,34 @@ namespace ChessKnight
 
         //Create board
           case "create board":
-            b.createBoard(maxLayers);
+            b.CreateBoard(maxLayers);
             break;
           
         //List cells in board
           case "show board":
             Console.WriteLine("Cell value, x position, y position: ");
-            foreach (int[] item in b.boardCells)
+            var size = (int)Math.Sqrt(b.BoardCells.Count);
+            var offset = size / 2;
+            var displayGrid = new string[size, size];
+
+            foreach (BoardCell item in b.BoardCells)
             {
-              for (int i = 0; i < item.Length; i++)
+              displayGrid[item.X + offset, item.Y + offset] = item.Value.ToString();
+            }
+
+            Console.WriteLine();
+            
+            for (int y = size - 1; y >= 0; y--)
+            {
+              for (int x = 0; x < size; x++)
               {
-                Console.Write(" " + item[i]);
+                Console.Write(displayGrid[x, y].PadLeft(4));
               }
-              
+
+              Console.WriteLine();
               Console.WriteLine();
             }
-            
+
             break;
         
         //Exit
