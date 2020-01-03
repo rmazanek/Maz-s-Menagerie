@@ -12,17 +12,34 @@ namespace ChessKnight
     private int y;
     public int[] pos {get; set;}
 
-    //Define list of next positions and prior positions as list of arrays
-    List<int[,]> nextPosList = new List<int[,]>{};
-    List<int[,]> oldPosList = new List<int[,]>{};
+    /*Define list of translations (combinations of x and y moves), 
+      next positions, and prior positions as list of arrays
+    */
     
-    //Knight constructor (taking starting position)
-    public Knight(int value, int x, int y)
+    public List<int[]> moves = new List<int[]>
     {
-      pos[0] = value;
-      pos[1] = x;
-      pos[2] = y;
-    }
+      new int[] {0,2,1},
+      new int[] {0,-2,1},
+      new int[] {0,2,-1},
+      new int[] {0,-2,-1},
+      new int[] {0,1,2},
+      new int[] {0,-1,2},
+      new int[] {0,1,-2},
+      new int[] {0,-1,-2}
+      
+    };    
+    public List<int[]> nextPosList = new List<int[]>{};
+    public List<int[]> oldPosList = new List<int[]>{};
+        
+    //Knight constructor (taking starting position)
+    //public Knight(int value, int x, int y)
+    //{
+    //  pos[0] = value;
+    //  pos[1] = x;
+    //  pos[2] = y;
+    //
+    //  oldPosList.Add(pos);
+    //}
     
     //Knight constructor (no starting position given)
     public Knight()
@@ -32,26 +49,41 @@ namespace ChessKnight
       value = pos[0];
       x = pos[1];
       y = pos[2];
+
+      oldPosList.Add(pos);
     }
 
     //Populate next move list
-    public List<int[,]> NextPosList()
+    public void NextPosList()
     {
-      
+
       //Add move
-      //nextPosList.Add(pos);
-
-
-      //List moves
-
-      Console.WriteLine("Moves generated: {");
-      foreach (var item in nextPosList)
+      for (int i = 0; i < moves.Count; i++)
       {
-        Console.WriteLine(item.ToString()+",\n");
+        int[] move = new int[3] {0,0,0};
+        int[] startingPoint = new int[3] {0,0,0};
+        int[] endingPoint = new int[3] {0,0,0};
+      
+      startingPoint = pos;
+      move = moves[i];
+
+      endingPoint[1] = startingPoint[1] + move[1];
+      endingPoint[2] = startingPoint[2] + move[2];
+
+      nextPosList.Add(endingPoint);
       }
 
-
-      return nextPosList;
+      //List moves
+      Console.WriteLine("Moves generated: value, x position, y position");
+      foreach (var item in nextPosList)
+      {
+        for (int i = 0; i < item.Length; i++)
+        {
+          Console.Write(" " + item[i]);
+        }
+        
+        Console.WriteLine();
+      }
     }
     
     //return "{"+pos[0]+","+pos[1]+","+pos[2]+"}";
