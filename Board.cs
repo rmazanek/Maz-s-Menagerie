@@ -4,7 +4,6 @@ using System.IO;
 
 namespace ChessKnight
 {
-  
   public class Board
   {
     //private int value;
@@ -13,15 +12,12 @@ namespace ChessKnight
 
     //public int[] cell {get; set;}
 
-    public List<int[]> boardCells = new List<int[]>
-    {
-      new int[] {0,0,0}
-    };
+    public List<BoardCell> BoardCells = new List<BoardCell>();
 
-    public void createBoard()
+    public void CreateBoard()
     {
-      boardCells.Clear();
-      boardCells.Add(new int[] {0,0,0});
+      BoardCells.Clear();
+      BoardCells.Add(new BoardCell(0, 0, 0));
       int cellValue = 1;
 
       //Layer cell count... 1^2, 3^2-1^2, 5^2-3^2, 7^2-5^2...
@@ -31,15 +27,10 @@ namespace ChessKnight
       {
         for (int m = 0; m <= layer; m++) // Right side to top right - x is constant
         {
-          int[] cell = new int[3];
+          BoardCell cell = new BoardCell(cellValue++, layer, m);
+          BoardCells.Add(cell);
           
-          cell[0] = cellValue++;
-          cell[1] = layer;
-          cell[2] = m;
-
-          boardCells.Add(cell);
-          
-//          foreach (int[] item in boardCells)
+//          foreach (int[] item in BoardCells)
 //          {
 //            for (int i = 0; i < item.Length; i++)
 //            {
@@ -52,15 +43,10 @@ namespace ChessKnight
         
         for (int n = layer - 1; n >= -layer; n--) //Top right to top left - y is constant
         {
-          int[] cell = new int[3];
+          BoardCell cell = new BoardCell(cellValue++, n, layer);
+          BoardCells.Add(cell);
 
-          cell[0] = cellValue++;
-          cell[1] = n;
-          cell[2] = layer;
-
-          boardCells.Add(cell);
-
-//          foreach (int[] item in boardCells)
+//          foreach (int[] item in BoardCells)
 //          {
 //            for (int i = 0; i < item.Length; i++)
 //            {
@@ -73,15 +59,10 @@ namespace ChessKnight
 
         for (int o = layer - 1; o >= -layer; o--) //Top left to bottom left - -x is constant
         {
-          int[] cell = new int[3];
+          BoardCell cell = new BoardCell(cellValue++, -layer, o);
+          BoardCells.Add(cell);
 
-          cell[0] = cellValue++;
-          cell[1] = -layer;
-          cell[2] = o;
-
-          boardCells.Add(cell);
-
-//          foreach (int[] item in boardCells)
+//          foreach (int[] item in BoardCells)
 //          {
 //            for (int i = 0; i < item.Length; i++)
 //            {
@@ -94,15 +75,10 @@ namespace ChessKnight
         
         for (int p = -layer + 1; p <= layer; p++) //Bottom left to bottom right - -y is constant
         {
-          int[] cell = new int[3];
+          BoardCell cell = new BoardCell(cellValue++, p, -layer);
+          BoardCells.Add(cell);
 
-          cell[0] = cellValue++;
-          cell[1] = p;
-          cell[2] = -layer;
-
-          boardCells.Add(cell);
-
-//         foreach (int[] item in boardCells)
+//         foreach (int[] item in BoardCells)
 //         {
 //           for (int i = 0; i < item.Length; i++)
 //           {
@@ -115,15 +91,10 @@ namespace ChessKnight
 
         for (int q = -layer + 1; q < 0; q++) //Bottom right to {layer,-1} - -y is constant
         {
-          int[] cell = new int[3];
+          BoardCell cell = new BoardCell(cellValue++, layer, q);
+          BoardCells.Add(cell);
 
-          cell[0] = cellValue++;
-          cell[1] = layer;
-          cell[2] = q;
-
-          boardCells.Add(cell);
-
-//          foreach (int[] item in boardCells)
+//          foreach (int[] item in BoardCells)
 //          {
 //            for (int i = 0; i < item.Length; i++)
 //            {
@@ -138,7 +109,7 @@ namespace ChessKnight
 
     //public showBoard()
     //{
-    //return boardCells;
+    //return BoardCells;
     //}
   }
 }
