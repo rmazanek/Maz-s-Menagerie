@@ -8,7 +8,7 @@ namespace ChessKnight
   {
     public static Knight k = new Knight();
     public static Board b = new Board();
-    public static int maxLayers = 5;  //Default board radius
+    public static int maxLayers = 200;  //Default board radius
     public static int valueFound;
 
     static void Main(string[] args) 
@@ -157,10 +157,10 @@ namespace ChessKnight
     public static void NextPosList(Knight knight, Board board)
     {
       knight.nextPosList.Clear();
-      Console.Write("Making 8 moves from cell: ");
-      DisplayCell(knight.position);
-      Console.WriteLine();
-      Console.WriteLine();
+      //Console.Write("Making 8 moves from cell: ");
+      //DisplayCell(knight.position);
+      //Console.WriteLine();
+      //Console.WriteLine();
 
       //Add move
       foreach (BoardCell move in knight.moves)
@@ -171,21 +171,20 @@ namespace ChessKnight
 
         int endValue = valueFound;
 
-        Console.WriteLine(endX + " = " + knight.position.X + " + " + move.X);
-        Console.WriteLine(endY + " = " + knight.position.Y + " + " + move.Y);
-        Console.WriteLine(endValue + " is the value on X and Y coordinates " + endX + " " + endY);
+        ////Console.WriteLine(endX + " = " + knight.position.X + " + " + move.X);
+        ////Console.WriteLine(endY + " = " + knight.position.Y + " + " + move.Y);
+        ////Console.WriteLine(endValue + " is the value on X and Y coordinates " + endX + " " + endY);
 
         BoardCell endPoint = new BoardCell(endValue, endX, endY);
         if(endPoint.Value == 0)
         {
-          Console.WriteLine("Point at origin or not found on board. The point was not added to the list.");
+          ////Console.WriteLine("Point at origin or not found on board. The point was not added to the list.");
           continue;
         }
         else
         {
-        //endPoint.Value = cell.findPositionValue(endPoint.X, endPoint.Y);
-        Console.WriteLine("Added point to list " + endPoint.Value + ", " + endPoint.X + ", " + endPoint.Y);
-        Console.WriteLine();
+        ////Console.WriteLine("Added point to list " + endPoint.Value + ", " + endPoint.X + ", " + endPoint.Y);
+        ////Console.WriteLine();
         knight.nextPosList.Add(endPoint);
         }
       }
@@ -200,24 +199,24 @@ namespace ChessKnight
     {
       try
       { //Show list of cells before removing visited spots
-        DisplayList(knight.nextPosList);
+        ////DisplayList(knight.nextPosList);
         List<BoardCell> oldPosListDummy = new List<BoardCell>(knight.oldPosList);
         List<BoardCell> nextPosListDummy = new List<BoardCell>(knight.nextPosList);
 
         //Throw out any positions already visited
         foreach (BoardCell visitedCell in oldPosListDummy)
         {
-          Console.WriteLine();
-          Console.Write("Comparing ");
-          DisplayCell(visitedCell);
-          Console.WriteLine(" from the old list to items in the next position list.");
-          Console.WriteLine();
+          ////Console.WriteLine();
+          ////Console.Write("Comparing ");
+          ////DisplayCell(visitedCell);
+          ////Console.WriteLine(" from the old list to items in the next position list.");
+          ////Console.WriteLine();
 
           foreach (BoardCell nextCell in nextPosListDummy)
           {
-            Console.Write("To item: ");
-            DisplayCell(nextCell);
-            Console.WriteLine();
+            ////Console.Write("To item: ");
+            ////DisplayCell(nextCell);
+            ////Console.WriteLine();
 
             if (nextCell.Value == visitedCell.Value)
             {
@@ -228,19 +227,19 @@ namespace ChessKnight
               //Console.WriteLine(index);
               //knight.nextPosList.Remove(knight.nextPosList[index]);
 
-              Console.WriteLine("Items are equal! Let's remove this from the list of next positions.");
+              ////Console.WriteLine("Items are equal! Let's remove this from the list of next positions.");
               knight.nextPosList.Remove(nextCell);
-              Console.WriteLine("Old positions: ");
-              DisplayList(knight.oldPosList);
-              Console.WriteLine("Next positions, with one removed hopefully: ");
-              DisplayList(knight.nextPosList);
-              Console.WriteLine();
-              Console.WriteLine("Continuing with the comparisons:");
+              ////Console.WriteLine("Old positions: ");
+              ////DisplayList(knight.oldPosList);
+              ////Console.WriteLine("Next positions, with one removed hopefully: ");
+              ////DisplayList(knight.nextPosList);
+              ////Console.WriteLine();
+              ////Console.WriteLine("Continuing with the comparisons:");
               break;
             }
             else
             {
-              Console.WriteLine("Items are not equal. Moving on.");
+              ////Console.WriteLine("Items are not equal. Moving on.");
               continue;
             }
           }
@@ -248,10 +247,10 @@ namespace ChessKnight
         //Rank the remaining positions
         knight.nextMove = knight.nextPosList[0];
 
-        Console.WriteLine();
-        Console.Write("Let's determine a winning move. Start comparing to first move in list: ");
-        DisplayCell(knight.nextMove);
-        Console.WriteLine();
+        ////Console.WriteLine();
+        ////Console.Write("Let's determine a winning move. Start comparing to first move in list: ");
+        ////DisplayCell(knight.nextMove);
+        ////Console.WriteLine();
 
         foreach (BoardCell cell in knight.nextPosList)
         {
@@ -260,30 +259,30 @@ namespace ChessKnight
 
           if(cell.Value < temp.Value)
           {
-            Console.Write("Compared " );
-            DisplayCell(cell);
-            Console.Write(" and ");
-            DisplayCell(temp);
+            ////Console.Write("Compared " );
+            ////DisplayCell(cell);
+            ////Console.Write(" and ");
+            ////DisplayCell(temp);
 
-            Console.Write(", finding the winner to be ");
+            ////Console.Write(", finding the winner to be ");
             knight.nextMove = cell;
-            DisplayCell(knight.nextMove);
-            Console.WriteLine(" - true step");
+            ////DisplayCell(knight.nextMove);
+            ////Console.WriteLine(" - true step");
           }
           else
           {
-            Console.Write("Compared " );
-            DisplayCell(cell);
-            Console.Write(" and ");
-            DisplayCell(temp);
+            ////Console.Write("Compared " );
+            ////DisplayCell(cell);
+            ////Console.Write(" and ");
+            ////DisplayCell(temp);
 
-            Console.Write(", finding the winner to be ");
-            DisplayCell(knight.nextMove);
-            Console.WriteLine(" - false step");
+            ////Console.Write(", finding the winner to be ");
+            ////DisplayCell(knight.nextMove);
+            ////Console.WriteLine(" - false step");
           }
         }
-        Console.WriteLine();
-        Console.WriteLine("We're done comparing. \n");
+        ////Console.WriteLine();
+        ////Console.WriteLine("We're done comparing. \n");
 
         knight.position = knight.nextMove;
       }
@@ -315,19 +314,19 @@ namespace ChessKnight
     {
       NextPosList(knight, board); //Get a list of next possible positions
                           
-      Console.WriteLine();
-      Console.Write("The knight's current position is: ");
-      DisplayCell(knight.position);
-      
-      Console.WriteLine();            
-      Console.WriteLine("The knight considered these cells:"); //Print knights possible moves      
+      ////Console.WriteLine();
+      ////Console.Write("The knight's current position is: ");
+      ////DisplayCell(knight.position);
+      ////
+      ////Console.WriteLine();            
+      ////Console.WriteLine("The knight considered these cells:"); //Print knights possible moves      
       GetNextMove(knight); //Get winning next move (lowest value)
       
-      Console.ForegroundColor = ConsoleColor.Yellow;
-      Console.Write("The knight moves once, to cell: ");
-      DisplayCell(knight.nextMove);
-      Console.ResetColor();
-      Console.WriteLine();
+      ////Console.ForegroundColor = ConsoleColor.Yellow;
+      ////Console.Write("The knight moves once, to cell: ");
+      ////DisplayCell(knight.nextMove);
+      ////Console.ResetColor();
+      ////Console.WriteLine();
       knight.oldPosList.Add(knight.nextMove);
       knight.position = knight.nextMove;
     }
