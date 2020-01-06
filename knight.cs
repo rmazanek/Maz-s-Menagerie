@@ -7,31 +7,35 @@ namespace ChessKnight
   
   public class Knight
   {
-    private int value;
-    private int x;
-    private int y;
-    public int[] pos {get; set;}
+    public BoardCell position;
+    public BoardCell nextMove;
+    public Board repeatBoard = new Board();
+    public int layersAgain = Program.maxLayers;
+    
+    //private int value;
+    //private int x;
+    //private int y;
+    //public int[] pos {get; set;}
 
     /*Define list of translations (combinations of x and y moves), 
       next positions, and prior positions as list of arrays
     */
     
-    public List<int[]> moves = new List<int[]>
+    public List<BoardCell> moves = new List<BoardCell>
     {
-      new int[] {0,2,1},
-      new int[] {0,-2,1},
-      new int[] {0,2,-1},
-      new int[] {0,-2,-1},
-      new int[] {0,1,2},
-      new int[] {0,-1,2},
-      new int[] {0,1,-2},
-      new int[] {0,-1,-2}
-      
+      new BoardCell(0,2,1),
+      new BoardCell(0,1,2),
+      new BoardCell(0,-1,2),
+      new BoardCell(0,-2,1),
+      new BoardCell(0,-2,-1),
+      new BoardCell(0,-1,-2),
+      new BoardCell(0,1,-2),
+      new BoardCell(0,2,-1)
     };    
-    public List<int[]> nextPosList = new List<int[]>{};
-    public List<int[]> oldPosList = new List<int[]>{};
-        
-    //Knight constructor (taking starting position)
+    public List<BoardCell> nextPosList = new List<BoardCell>{};
+    public List<BoardCell> oldPosList = new List<BoardCell>{};
+
+        //Knight constructor (taking starting position)
     //public Knight(int value, int x, int y)
     //{
     //  pos[0] = value;
@@ -44,47 +48,21 @@ namespace ChessKnight
     //Knight constructor (no starting position given)
     public Knight()
     {
-      int[] pos = new int[3] {0,0,0};
-      
-      value = pos[0];
-      x = pos[1];
-      y = pos[2];
+      position = new BoardCell(0,0,0);
+      oldPosList.Add(position);
 
-      oldPosList.Add(pos);
+      //KnightCell origin = new KnightCell();
+      
+      //value = pos[0];
+     // x = pos[1];
+     // y = pos[2];
+
+     // oldPosList.Add(pos);
     }
 
     //Populate next move list
-    public void NextPosList()
-    {
 
-      //Add move
-      for (int i = 0; i < moves.Count; i++)
-      {
-        int[] move = new int[3] {0,0,0};
-        int[] startingPoint = new int[3] {0,0,0};
-        int[] endingPoint = new int[3] {0,0,0};
-      
-      startingPoint = pos;
-      move = moves[i];
-
-      endingPoint[1] = startingPoint[1] + move[1];
-      endingPoint[2] = startingPoint[2] + move[2];
-
-      nextPosList.Add(endingPoint);
-      }
-
-      //List moves
-      Console.WriteLine("Moves generated: value, x position, y position");
-      foreach (var item in nextPosList)
-      {
-        for (int i = 0; i < item.Length; i++)
-        {
-          Console.Write(" " + item[i]);
-        }
-        
-        Console.WriteLine();
-      }
-    }
+  }
     
     //return "{"+pos[0]+","+pos[1]+","+pos[2]+"}";
     
@@ -111,5 +89,4 @@ namespace ChessKnight
     //  //NextPos[1,] += pos[1]+1;
     //  return nextPos[0]; 
     //}
-  }
 }
